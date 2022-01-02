@@ -92,7 +92,9 @@
                   ) in saleAttr.spuSaleAttrValueList"
                   :key="saleAttrValue.id"
                   :class="{ active: saleAttrValue.isChecked == 1 }"
-                  @click="changeActive(saleAttrValue,saleAttr.spuSaleAttrValueList)"
+                  @click="
+                    changeActive(saleAttrValue, saleAttr.spuSaleAttrValueList)
+                  "
                 >
                   {{ saleAttrValue.saleAttrValueName }}
                 </dd>
@@ -361,13 +363,12 @@ export default {
     },
   },
   methods: {
-    changeActive(saleAttr,arr){
-      arr.forEach(item => {
-        item.isChecked=0
+    changeActive(saleAttr, arr) {
+      arr.forEach((item) => {
+        item.isChecked = 0;
       });
-      saleAttr.isChecked=1
-    }
-    
+      saleAttr.isChecked = 1;
+    },
   },
   mounted() {
     // console.log(this.$route.params);
