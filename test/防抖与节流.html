@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖与节流</title>
+    <script src="./lodash.js"></script>
+</head>
+
+<body>
+    <p> 请输入搜索内容：<input type="text"></p>
+    <h1>我是计数器:<span>0</span></h1>
+    <button>点我+1</button>
+</body>
+
+</html>
+<script>
+
+    let input = document.querySelector('input')
+    let btn = document.querySelector('button')
+    let span = document.querySelector('span')
+    let count = 0
+    //防抖--最后执行一次，搜索
+    input.oninput = _.debounce(function () {
+        console.log('防抖-----ajax请求');
+    }, 1000)
+    // //节流--频繁变少量-立即执行-轮播图等--浏览器解析更轻松
+       btn.onclick = _.throttle(function () {
+           count++
+           span.innerHTML=count
+           console.log('节流----');
+        }, 2000)
+    // btn.onclick = function () {
+    //     count++
+    //     span.innerHTML = count
+    // }
+</script>
