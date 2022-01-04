@@ -102,12 +102,22 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input
+                  autocomplete="off"
+                  class="itxt"
+                  v-model="skuNum"
+                  @change="changeSkuNum"
+                />
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a
+                  href="javascript:"
+                  class="mins"
+                  @click="skuNum > 1 ? skuNum-- : (skuNum = 1)"
+                  >-</a
+                >
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -349,9 +359,15 @@
 import { mapGetters } from "vuex";
 import ImageList from "./ImageList/ImageList";
 import Zoom from "./Zoom/Zoom";
-
 export default {
   name: "Detail",
+  data() {
+    return {
+      skuNum: 1,
+     
+    };
+  },
+
   components: {
     ImageList,
     Zoom,
@@ -368,6 +384,35 @@ export default {
         item.isChecked = 0;
       });
       saleAttr.isChecked = 1;
+    },
+    changeSkuNum(event) {
+      //获取输入
+      let value = event.target.value * 1;
+      // 判断输入是否非法
+      if (isNaN(value) || value < 1) {
+        console.log("非法");
+        this.skuNum = 1;
+      } else {
+        //整数
+        this.skuNum = parseInt(value);
+      }
+    },
+   async addCart() {
+      try {
+        //
+       await this.$store.dispatch("addOrUpdateCart", {
+          skuId: this.$route.params.skuid,
+          skuNum: this.skuNum,
+        });
+     
+        // //sessionStorage临时会话存储，字符串格式
+        sessionStorage.setItem("SKUINFO", JSON.stringify(this.skuInfo));
+        //请求成功跳转路由
+        this.$router.push({name:'addCartSuccess',query:{skuNum:this.skuNum}});
+      } catch (error) {
+        //请求失败消息提示
+        alert(error.message);
+      }
     },
   },
   mounted() {

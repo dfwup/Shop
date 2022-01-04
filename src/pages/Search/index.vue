@@ -248,7 +248,7 @@ export default {
       this.searchParams.order = newOrder;
       this.getData();
     },
-    //自定义世家，从子组件中获取当前页数
+    //自定义事件，从子组件中获取当前页数
     getPageNo(pageNo) {
       // console.log(pageNo);
       //整理参数

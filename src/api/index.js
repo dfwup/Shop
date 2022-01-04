@@ -16,23 +16,33 @@ export const reqGetBannersList = () => mockRequest({ url: '/banners', method: 'g
 //floors接口mock
 export const reqGetFloorsList = () => mockRequest({ url: '/floors', method: 'get' })
 //搜索接口      /api/list   post    需要参数
-// {
-//     "category3Id": "61",
-//     "categoryName": "手机",
-//     "keyword": "小米",
-//     "order": "1:desc",
-//     "pageNo": 1,
-//     "pageSize": 10,
-//     "props": ["1:1700-2799:价格", "2:6.65-6.74英寸:屏幕尺寸"],
-//     "trademark": "4:小米"
-//   }
 export const reqGetSearchInfo = (params) => request({
     url: '/list',
     method: 'post',
-    data:params
+    data: params
 })
 export const reqGetGoodsInfo = (skuId) => request({
     url: `/item/${skuId}`,
+    method: 'get',
+})
+//将产品添加到购物车中（更新）
+export const reqAddOrUpdateCart = (skuId, skuNum) => request({
+    url: `/cart/addToCart/${skuId}/${skuNum}`,
+    method: 'post',
+})
+//获取购物车数据
+export const reqGetCartList = () => request({
+    url: '/cart/cartList',
+    method: 'get',
+})
+//删除
+export const reqDeleteCartBySkuId = (skuId) => request({
+    url: `/cart/deleteCart/${skuId}`,
+    method: 'delete',
+})
+//切换商品选择状态/api/cart/checkCart/{skuID}/{isChecked}   get
+export const reqUpdateCheckedBySkuId = (skuId,isChecked) => request({
+    url: `/cart/checkCart/${skuId}/${isChecked} `,
     method: 'get',
 })
 
