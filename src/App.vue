@@ -15,9 +15,7 @@ export default {
   name: "App",
   components: { Header, Footer },
   mounted(){
-    // console.log(this.$store);
     this.$store.dispatch("getCategoryList")
-    // console.log('发送请求');
   }
 };
 </script>

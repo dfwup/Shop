@@ -1,5 +1,5 @@
 //home模块的store
-import { reqGetCategoryList, reqGetBannersList, reqGetFloorsList } from '@/api'
+import { reqGetCategoryList, reqGetBannersList, reqGetFloorsList, } from '@/api'
 
 const actions = {
     async getCategoryList({ commit }) {
@@ -25,6 +25,7 @@ const actions = {
             commit('FLOORSLIST', result.data)
         }
     },
+  
 }
 const mutations = {
     GETCATEGORYLIST(state, categoryList) {
