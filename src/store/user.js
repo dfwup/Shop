@@ -1,4 +1,10 @@
-import { reqGetCode, reqUserRegister, reqUserLogin, reqGetUserInfo, reqUserLogout } from "@/api";
+import {
+    reqGetCode,
+    reqUserRegister,
+    reqUserLogin,
+    reqGetUserInfo,
+    reqUserLogout,
+} from "@/api";
 import { getToken, removeToken, setToken } from "../utils/token";
 const state = {
     code: '',//验证码
@@ -14,14 +20,14 @@ const mutations = {
     USERLOGIN(state, token) {
         state.token = token
     },
-//获取state中的用户信息
+    //获取state中的用户信息
     GETUSERINFO(state, userInfo) {
         state.userInfo = userInfo
     },
     //清除state所有数据
     ClEARALL(state) {
         // console.log(state);
-        state.code=''
+        state.code = ''
         state.userInfo = {}
         removeToken()
     }
@@ -69,7 +75,7 @@ const actions = {
         if (result.code == 200) {
             commit('GETUSERINFO', result.data)
             return 'ok'
-        } 
+        }
     },
     //退出登录
     async userLogout({ commit }) {
@@ -78,10 +84,10 @@ const actions = {
         if (result.code == 200) {
             commit('ClEARALL')
             return 'ok'
-        }else{
+        } else {
             return Promise.reject(new Error('failure'))
         }
-    }
+    },
 
 }
 const getters = {

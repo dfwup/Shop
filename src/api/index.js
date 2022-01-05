@@ -36,7 +36,7 @@ export const reqGetCartList = () => request({
     url: '/cart/cartList',
     method: 'get',
 })
-//删除
+//删除购物车商品
 export const reqDeleteCartBySkuId = (skuId) => request({
     url: `/cart/deleteCart/${skuId}`,
     method: 'delete',
@@ -46,6 +46,8 @@ export const reqUpdateCheckedBySkuId = (skuId, isChecked) => request({
     url: `/cart/checkCart/${skuId}/${isChecked} `,
     method: 'get',
 })
+
+
 //获取验证码接口/api/user/passport/sendCode/{phone}----文档上的接口失效了
 export const reqGetCode = (phone) => request({
     url: `/user/passport/sendCode/${phone}`,
@@ -72,5 +74,16 @@ export const reqGetUserInfo=()=>request({
 //退出登录  /api/user/passport/logout   get 无参数
 export const reqUserLogout=()=>request({
     url:'user/passport/logout',
+    method:'get'
+})
+
+// 获取用户地址信息   /api/user/userAddress/auth/findUserAddressList   get 无参数
+export const reqGetAddressInfo=()=>request({
+    url:'/user/userAddress/auth/findUserAddressList',
+    method:'get'
+})
+//获取订单交易页信息 /api/order/auth/trade  get 无参数
+export const reqGetTradeInfo=()=>request({
+    url:'/order/auth/trade',
     method:'get'
 })
