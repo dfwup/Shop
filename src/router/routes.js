@@ -8,8 +8,12 @@ import Cart from "@/pages/Cart";
 import Trade from "@/pages/Trade";
 import Pay from "@/pages/Pay";
 import PaySuccess from "@/pages/PaySuccess";
+import Center from "@/pages/Center";
+import MyOrder from "@/pages/Center/MyOrder";
+import GroupOrder from "@/pages/Center/GroupOrder";
+
 export default [
-   
+
     {
         name: 'home',
         path: '/home',
@@ -51,28 +55,48 @@ export default [
         }
     },
     {
-        name:'cart',
-        path:'/cart',
-        component:Cart,
-        meta:[{show:true}]
+        name: 'cart',
+        path: '/cart',
+        component: Cart,
+        meta: [{ show: true }]
     },
     {
-        name:'trade',
-        path:'/trade',
-        component:Trade,
-        meta:[{show:true}]
+        name: 'trade',
+        path: '/trade',
+        component: Trade,
+        meta: [{ show: true }]
     },
     {
-        name:'pay',
-        path:'/pay',
-        component:Pay,
-        meta:[{show:true}]
+        name: 'pay',
+        path: '/pay',
+        component: Pay,
+        meta: [{ show: true }]
     },
     {
-        name:'paysuccess',
-        path:'/paysuccess',
-        component:PaySuccess,
-        meta:[{show:true}]
+        name: 'paysuccess',
+        path: '/paysuccess',
+        component: PaySuccess,
+        meta: [{ show: true }]
+    },
+    {
+        // name: 'center',
+        path: '/center',
+        component: Center,
+        // meta: [{ show: true }],
+        children:[
+            {
+                path:'myorder',
+                component:MyOrder,
+            },
+            {
+                path:'grouporder',
+                component:GroupOrder
+            },
+            {
+                path:'',
+                redirect:'myorder'
+            }
+        ]
     },
 
     {
