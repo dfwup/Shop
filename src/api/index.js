@@ -11,11 +11,17 @@ import mockRequest from './mockRequest'
 //     return request({ url: '/product/getBaseCategoryList', method: 'get' })
 // }
 //三级联动接口
-export const reqGetCategoryList = () => request({ url: '/product/getBaseCategoryList', method: 'get' })
+export const reqGetCategoryList = () => request({
+    url: '/product/getBaseCategoryList',
+    method: 'get'
+})
 //轮播图接口mock
 export const reqGetBannersList = () => mockRequest({ url: '/banners', method: 'get' })
 //floors接口mock
-export const reqGetFloorsList = () => mockRequest({ url: '/floors', method: 'get' })
+export const reqGetFloorsList = () => mockRequest({
+    url: '/floors',
+    method: 'get'
+})
 //搜索接口      /api/list   post    需要参数
 export const reqGetSearchInfo = (params) => request({
     url: '/list',
@@ -61,29 +67,37 @@ export const reqUserRegister = (data) => request({
     data,
 })
 //登录接口/api/user/passport/login  post    phone,password
-export const reqUserLogin=(data)=>request({
-    url:'/user/passport/login',
-    method:'post',
+export const reqUserLogin = (data) => request({
+    url: '/user/passport/login',
+    method: 'post',
     data
 })
 //获取用户信息，（请求头） get  token校验接口 /api/user/passport/auth/getUserInfo
-export const reqGetUserInfo=()=>request({
-    url:'/user/passport/auth/getUserInfo',
-    method:'get'
+export const reqGetUserInfo = () => request({
+    url: '/user/passport/auth/getUserInfo',
+    method: 'get'
 })
 //退出登录  /api/user/passport/logout   get 无参数
-export const reqUserLogout=()=>request({
-    url:'user/passport/logout',
-    method:'get'
+export const reqUserLogout = () => request({
+    url: 'user/passport/logout',
+    method: 'get'
 })
 
 // 获取用户地址信息   /api/user/userAddress/auth/findUserAddressList   get 无参数
-export const reqGetAddressInfo=()=>request({
-    url:'/user/userAddress/auth/findUserAddressList',
-    method:'get'
+export const reqGetAddressInfo = () => request({
+    url: '/user/userAddress/auth/findUserAddressList',
+    method: 'get'
 })
 //获取订单交易页信息 /api/order/auth/trade  get 无参数
-export const reqGetTradeInfo=()=>request({
-    url:'/order/auth/trade',
-    method:'get'
+export const reqGetTradeInfo = () => request({
+    url: '/order/auth/trade',
+    method: 'get'
+})
+
+//提交订单接口  /api/order/auth/submitOrder?tradeNo={tradeNo}   post    有参数
+//练习不使用vuex
+export const reqSubmitOrder=(tradeNo,data)=>request({
+    url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    method:'post',
+    data
 })

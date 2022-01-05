@@ -75,8 +75,11 @@
     <div class="money clearFix">
       <ul>
         <li>
-          <b><i>{{orderInfo.totalNum}}</i>件商品，总商品金额</b>
-          <span>¥{{orderInfo.totalAmount}}.00</span>
+          <b
+            ><i>{{ orderInfo.totalNum }}</i
+            >件商品，总商品金额</b
+          >
+          <span>¥{{ orderInfo.totalAmount }}.00</span>
         </li>
         <li>
           <b>返现：</b>
@@ -89,7 +92,9 @@
       </ul>
     </div>
     <div class="trade">
-      <div class="price">应付金额:　<span>¥{{orderInfo.totalAmount}}.00</span></div>
+      <div class="price">
+        应付金额:　<span>¥{{ orderInfo.totalAmount }}.00</span>
+      </div>
       <div class="receiveInfo">
         寄送至:
         <span>{{ userDefaultAddress.fullAddress }}</span>
@@ -98,7 +103,7 @@
       </div>
     </div>
     <div class="sub clearFix">
-      <router-link class="subBtn" to="/pay">提交订单</router-link>
+      <a class="subBtn" @click="submitOrder">提交订单</a>
     </div>
   </div>
 </template>
@@ -110,6 +115,7 @@ export default {
   data() {
     return {
       msg: "",
+      orderId:''
     };
   },
   computed: {
@@ -131,6 +137,31 @@ export default {
         item.isDefault = 0;
       });
       address.isDefault = 1;
+    },
+    async submitOrder() {
+      // console.log(this.$API);
+      let { tradeNo } = this.orderInfo; //为啥不是let {tradeNo}=this.orderInfo.tradeInfo
+      let data = {
+        consignee: this.userDefaultAddress.consignee, //收件人名字
+        consigneeTel: this.userDefaultAddress.phoneNum, //电话
+        deliveryAddress: this.userDefaultAddress.fullAddress, //地址
+        paymentWay: "ONLINE", //支付方式
+        orderComment: this.msg, //留言
+        orderDetailList: this.orderInfo.detailArrayList, //商品清单
+      };
+
+      let result = await this.$API.reqSubmitOrder(tradeNo, data); //返回订单号
+      console.log(result);
+      //提交订单成功
+      if (result.code==200) {
+        //存储返回的orderId
+        this.orderId=result.data
+        // 跳转路由+传参
+        this.$router.push('/pay?orderId='+this.orderId)//拼接或者模版字符串
+      }else{
+        //提交失败
+        alert(result.message)
+      }
     },
   },
 };
