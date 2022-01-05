@@ -7,6 +7,7 @@ import AddCartSuccess from "@/pages/AddCartSuccess";
 import Cart from "@/pages/Cart";
 import Trade from "@/pages/Trade";
 import Pay from "@/pages/Pay";
+import PaySuccess from "@/pages/PaySuccess";
 export default [
    
     {
@@ -65,6 +66,12 @@ export default [
         name:'pay',
         path:'/pay',
         component:Pay,
+        meta:[{show:true}]
+    },
+    {
+        name:'paysuccess',
+        path:'/paysuccess',
+        component:PaySuccess,
         meta:[{show:true}]
     },
 

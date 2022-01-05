@@ -47,14 +47,14 @@ export const reqDeleteCartBySkuId = (skuId) => request({
     url: `/cart/deleteCart/${skuId}`,
     method: 'delete',
 })
-//切换商品选择状态/api/cart/checkCart/{skuID}/{isChecked}   get
+//切换商品选择状态/api/cart/checkCart/{skuID}/{isChecked}   get skuId,isChecked
 export const reqUpdateCheckedBySkuId = (skuId, isChecked) => request({
     url: `/cart/checkCart/${skuId}/${isChecked} `,
     method: 'get',
 })
 
 
-//获取验证码接口/api/user/passport/sendCode/{phone}----文档上的接口失效了
+//获取验证码接口/api/user/passport/sendCode/{phone}  get    phone --文档上的接口失效了,文档最后有可用接口
 export const reqGetCode = (phone) => request({
     url: `/user/passport/sendCode/${phone}`,
     method: 'get'
@@ -100,4 +100,15 @@ export const reqSubmitOrder=(tradeNo,data)=>request({
     url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,
     method:'post',
     data
+})
+//订单支付  /api get     orderId
+export const reqPayInfo=(orderId)=>request({
+    url:`/payment/weixin/createNative/${orderId} `,
+    method:'get'
+})
+
+//订单支付状态接口  /api/payment/weixin/queryPayStatus/{orderId}    get 参数orderId
+export const reqPayStatus=(orderId)=>request({
+    url:`/payment/weixin/queryPayStatus/${orderId}`,
+    method:'get'
 })

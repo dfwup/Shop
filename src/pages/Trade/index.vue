@@ -151,7 +151,7 @@ export default {
       };
 
       let result = await this.$API.reqSubmitOrder(tradeNo, data); //返回订单号
-      console.log(result);
+      // console.log(result);
       //提交订单成功
       if (result.code==200) {
         //存储返回的orderId
