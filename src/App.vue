@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Header ></Header>
+  
+    <Header></Header>
     <!-- 路由组件出口 -->
     <router-view></router-view>
     <Footer v-show="$route.meta.show"></Footer>
@@ -14,9 +15,9 @@ import Footer from "./components/Footer";
 export default {
   name: "App",
   components: { Header, Footer },
-  mounted(){
-    this.$store.dispatch("getCategoryList")
-  }
+  mounted() {
+    this.$store.dispatch("getCategoryList");
+  },
 };
 </script>
 

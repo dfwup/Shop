@@ -21,6 +21,9 @@
                   type="text"
                   placeholder="邮箱/用户名/手机号"
                   v-model="phone"
+                  name="phone"
+                  v-validate="{ required: true, regex: /^1\d{10}$/ }"
+                  :class="{ invalid: errors.has('phone') }"
                 />
               </div>
               <div class="input-text clearFix">
@@ -29,6 +32,12 @@
                   type="text"
                   placeholder="请输入密码"
                   v-model="password"
+                  name="password"
+                  v-validate="{
+                    required: true,
+                    regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                  }"
+                  :class="{ invalid: errors.has('password') }"
                 />
               </div>
               <div class="setting clearFix">
@@ -87,12 +96,17 @@ export default {
   },
   methods: {
     async userLogin() {
-      try {
-        const { phone, password } = this;
-        await this.$store.dispatch("userLogin", { phone, password });
-        this.$router.push('/home')
-      } catch (error) {
-        alert(error.message);
+      const success = await this.$validator.validateAll();
+      if (success) {
+        try {
+          const { phone, password } = this;
+          await this.$store.dispatch("userLogin", { phone, password });
+          this.$router.push("/home");
+        } catch (error) {
+          alert(error.message);
+        }
+      }else{
+        alert('账号或密码格式错误')
       }
     },
   },

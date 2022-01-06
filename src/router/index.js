@@ -36,32 +36,40 @@ let router = new VueRouter({
     }
 })
 //全局前置路由守卫
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     let token = store.state.user.token
-    let name=store.state.user.userInfo.name
+    let name = store.state.user.userInfo.name
     //token判断用户是否已经登录
     if (token) {
-        if (to.path == '/login'||to.path=='/register') {
+        if (to.path == '/login' || to.path == '/register') {
             next('/home')
-        }else{
+        } else {
             //name判断是否有用户信息
             if (name) {
                 next()
             } else {
-              try {
-                  //获取用户信息之后再放行
-                await store.dispatch('getUserInfo')
-                next()
-              } catch (error) {
-                  //token过期，清除相关信息
-                  await store.dispatch('userLogout')
-                  next('/login')
-              }
+                try {
+                    //获取用户信息之后再放行
+                    await store.dispatch('getUserInfo')
+                    next()
+                } catch (error) {
+                    //token过期，清除相关信息
+                    await store.dispatch('userLogout')
+                    next('/login')
+                }
             }
         }
-    }else{
+    } else {
         //未登录
-        next()
+        //未登录不能访问---交易trade，支付pay,订单center
+        //获取将要访问的路由
+        let toPath = to.path
+        if (toPath.indexOf('/trade') != -1 || toPath.indexOf('/pay') != -1 || toPath.indexOf('/center') != -1) {
+            next('/login?redirect=' + toPath)
+            // console.log(toPath);
+        } else {
+            next()
+        }
     }
 })
 
