@@ -77,8 +77,12 @@
               >
                 <a href="#" class="btn">{{ order.orderStatusName }} </a>
               </td>
-              <td  :rowspan="order.orderDetailList.length"
-                v-if="index == 0" width="13%" class="center">
+              <td
+                :rowspan="order.orderDetailList.length"
+                v-if="index == 0"
+                width="13%"
+                class="center"
+              >
                 <ul class="unstyled">
                   <li>
                     <a href="mycomment.html" target="_blank">评价|晒单</a>
@@ -90,32 +94,14 @@
         </table>
       </div>
       <div class="choose-order">
-        <div class="pagination">
-          <ul>
-            <li class="prev disabled">
-              <a href="javascript:">«上一页</a>
-            </li>
-            <li class="page actived">
-              <a href="javascript:">1</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">2</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">3</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">4</a>
-            </li>
-
-            <li class="next disabled">
-              <a href="javascript:">下一页»</a>
-            </li>
-          </ul>
-          <div>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;共2页&nbsp;</span>
-          </div>
-        </div>
+        <!-- 分页器 ["pageNo", "pageSize", "total", "continues"],-->
+        <Pagination
+          :pageNo="page"
+          :pageSize="limit"
+          :total="myOrder.total"
+          :continues="7"
+          @getPageNo="getPageNo"
+        />
       </div>
     </div>
     <!--猜你喜欢-->
@@ -174,17 +160,23 @@
 </template>
 
 <script>
+import Pagination from "@/components/Pagination";
 export default {
   data() {
     return {
       //初始化数据
       page: 1, //当前页数
-      limit: 10, //每页显示订单个数
+      limit: 3, //每页显示订单个数
       myOrder: {}, //存储订单数据
+      continues: 5,
     };
   },
-  computed: {},
+  components: {
+    Pagination,
+  },
+
   methods: {
+    //发起请求并订单数据
     async getData() {
       const { page, limit } = this;
       let result = await this.$API.reqMyOrderList(page, limit);
@@ -193,6 +185,12 @@ export default {
         this.myOrder = result.data;
       }
     },
+    //获取点击页数
+    getPageNo(page){
+      // console.log(page);
+      this.page=page
+      this.getData()
+    }
   },
   mounted() {
     this.getData();

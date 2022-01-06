@@ -52,14 +52,11 @@ export const reqUpdateCheckedBySkuId = (skuId, isChecked) => request({
     url: `/cart/checkCart/${skuId}/${isChecked} `,
     method: 'get',
 })
-
-
 //获取验证码接口/api/user/passport/sendCode/{phone}  get    phone --文档上的接口失效了,文档最后有可用接口
 export const reqGetCode = (phone) => request({
     url: `/user/passport/sendCode/${phone}`,
     method: 'get'
 })
-
 //注册接口/api/user/passport/register   post    phone,password,code
 export const reqUserRegister = (data) => request({
     url: '/user/passport/register',
@@ -82,7 +79,6 @@ export const reqUserLogout = () => request({
     url: 'user/passport/logout',
     method: 'get'
 })
-
 // 获取用户地址信息   /api/user/userAddress/auth/findUserAddressList   get 无参数
 export const reqGetAddressInfo = () => request({
     url: '/user/userAddress/auth/findUserAddressList',
@@ -93,27 +89,25 @@ export const reqGetTradeInfo = () => request({
     url: '/order/auth/trade',
     method: 'get'
 })
-
 //提交订单接口  /api/order/auth/submitOrder?tradeNo={tradeNo}   post    有参数
 //练习不使用vuex
-export const reqSubmitOrder=(tradeNo,data)=>request({
-    url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,
-    method:'post',
+export const reqSubmitOrder = (tradeNo, data) => request({
+    url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    method: 'post',
     data
 })
 //订单支付  /api get     orderId
-export const reqPayInfo=(orderId)=>request({
-    url:`/payment/weixin/createNative/${orderId} `,
-    method:'get'
+export const reqPayInfo = (orderId) => request({
+    url: `/payment/weixin/createNative/${orderId} `,
+    method: 'get'
 })
-
 //订单支付状态接口  /api/payment/weixin/queryPayStatus/{orderId}    get 参数orderId
-export const reqPayStatus=(orderId)=>request({
-    url:`/payment/weixin/queryPayStatus/${orderId}`,
-    method:'get'
+export const reqPayStatus = (orderId) => request({
+    url: `/payment/weixin/queryPayStatus/${orderId}`,
+    method: 'get'
 })
 //我的订单  /api/order/auth/{page}/{limit}  get 参数page,limit
-export const reqMyOrderList=(page,limit)=>request({
-    url:`/order/auth/${page}/${limit}`,
-    method:'get'
+export const reqMyOrderList = (page, limit) => request({
+    url: `/order/auth/${page}/${limit}`,
+    method: 'get'
 })
